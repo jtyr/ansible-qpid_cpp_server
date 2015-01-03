@@ -1,0 +1,6 @@
+---
+
+- name: Restart Qpid daemon
+  service:
+    name: qpidd
+    state: restarted
