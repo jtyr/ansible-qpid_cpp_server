@@ -9,9 +9,12 @@ qpid_cpp_server_storage_pkg: qpid-cpp-server-store
 # Default Qpid daemon config file
 qpid_cpp_server_daemon_config_file: /etc/qpid/qpidd.conf
 
+# Default repo URL
+qpid_cpp_server_yum_repo_url: https://repos.fedorapeople.org/repos/pulp/pulp/stable/latest/$releasever/$basearch/
+
 # Default YUM repository
 qpid_cpp_server_yum_repo:
   pulp:
     name: Pulp Project repository
-    baseurl: https://repos.fedorapeople.org/repos/pulp/pulp/stable/latest/$releasever/$basearch/
+    baseurl: "{{ qpid_cpp_server_yum_repo_url }}"
     gpgcheck: 0
