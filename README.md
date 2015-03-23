@@ -30,11 +30,14 @@ Role variables
 List of variables used by the role:
 
 ```
-# Default qpidd config
-qpid_cpp_server_qpidd_config: {}
+# Package to be installed (you can force a specific version here)
+qpid_cpp_server_pkg: qpid-cpp-server
 
 # Default storage package
 qpid_cpp_server_storage_pkg: qpid-cpp-server-store
+
+# Default qpidd config
+qpid_cpp_server_qpidd_config: {}
 
 # Default Qpid daemon config file
 qpid_cpp_server_daemon_config_file: /etc/qpid/qpidd.conf

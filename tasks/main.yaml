@@ -2,11 +2,19 @@
 
 - name: Install Qpid CCP Server package
   yum:
-    name: qpid-cpp-server
+    name: "{{ qpid_cpp_server_pkg }}"
+  notify:
+    - Restart Qpid daemon
+  tags:
+    - qpid_cpp_server_pkg
 
 - name: Install storage package
   yum:
     name: "{{ qpid_cpp_server_storage_pkg }}"
+  notify:
+    - Restart Qpid daemon
+  tags:
+    - qpid_cpp_server_pkg
 
 - name: Configure Qpid daemon
   template:
@@ -14,6 +22,8 @@
     dest: "{{ qpid_cpp_server_daemon_config_file }}"
   notify:
     - Restart Qpid daemon
+  tags:
+    - qpid_cpp_server_config
 
 - name: Make qpidd service running
   service:
