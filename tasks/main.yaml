@@ -36,7 +36,6 @@
   template:
     src: qpidd.conf.j2
     dest: "{{ qpid_cpp_server_daemon_config_file }}"
-  register: qpid_cpp_server_config_result
   notify:
     - Restart Qpid daemon
   tags:
@@ -53,9 +52,6 @@
   service:
     name: qpidd
     state: running
-  when: >
-    qpid_cpp_server_config_result is not defined or
-    not qpid_cpp_server_config_result.changed
   register: qpid_cpp_server_service_started
   tags:
     - qpid_cpp_server_service
