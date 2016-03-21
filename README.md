@@ -4,8 +4,8 @@ pulp
 Ansible role which installs Qpid CPP server.
 
 
-Example
--------
+Examples
+--------
 
 ```
 ---
@@ -19,9 +19,21 @@ Example
 - hosts: myhost2
   roles:
     - role: qpid_cpp_server
-      qpid_cpp_server_config:
+      qpid_cpp_server_qpidd_config:
         auth: 'no'
 ```
+
+This role requires [Config
+Encoders](https://github.com/jtyr/ansible/blob/jtyr-config_encoders/lib/ansible/plugins/filter/config_encoders.py)
+which must be configured in the `ansible.cfg` file like this:
+
+```
+[defaults]
+
+filter_plugins = ./plugins/filter/
+```
+
+Where the `./plugins/filter/` containes the `config_encoders.py` file.
 
 
 Role variables
@@ -30,31 +42,33 @@ Role variables
 List of variables used by the role:
 
 ```
-# Package to be installed (you can force a specific version here)
+# Whether to install EPEL YUM repo
+qpid_cpp_server_epel_install: yes
+
+# EPEL YUM repo URL
+qpid_cpp_server_epel_yumrepo_url: "{{ yumrepo_epel_url | default('https://dl.fedoraproject.org/pub/epel/' + ansible_distribution_major_version + '/' + ansible_userspace_architecture + '/') }}"
+
+# Additional YUM repo params
+qpid_cpp_server_epel_yumrepo_params: {}
+
+# Package to be installed (version can be specified here)
 qpid_cpp_server_pkg: qpid-cpp-server
 
-# Default storage package
-qpid_cpp_server_storage_pkg: qpid-cpp-server-store
-
-# Default qpidd config
-qpid_cpp_server_qpidd_config: {}
+# Default storage package (version can be specified here)
+qpid_cpp_server_storage_pkg: qpid-cpp-server-linearstore
 
 # Default Qpid daemon config file
 qpid_cpp_server_daemon_config_file: /etc/qpid/qpidd.conf
 
-# Default YUM repository
-qpid_cpp_server_yum_repo:
-  pulp:
-    name: Pulp Project repository
-    baseurl: https://repos.fedorapeople.org/repos/pulp/pulp/stable/latest/$releasever/$basearch/
-    gpgcheck: 0
+# Default qpidd config
+qpid_cpp_server_qpidd_config: {}
 ```
 
 
 Dependencies
 ------------
 
-* [`yumrepo`](https://github.com/picotrading/ansible-yumrepo) role
+- [Config Encoders](https://github.com/jtyr/ansible/blob/jtyr-config_encoders/lib/ansible/plugins/filter/config_encoders.py)
 
 
 License

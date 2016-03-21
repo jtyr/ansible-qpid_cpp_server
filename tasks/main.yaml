@@ -1,15 +1,31 @@
 ---
 
+- name: Test distribution
+  assert:
+    that: >
+      ansible_os_family == "RedHat"
+
+- name: Add EPEL YUM repo
+  yum_repository:
+    name: epel
+    description: EPEL YUM repo
+    baseurl: "{{ qpid_cpp_server_epel_yumrepo_url }}"
+    gpgcheck: no
+    params: "{{ qpid_cpp_server_epel_yumrepo_params }}"
+  when: qpid_cpp_server_epel_install
+  tags:
+    - qpid_cpp_server_pkg
+
 - name: Install Qpid CCP Server package
-  yum:
+  package:
     name: "{{ qpid_cpp_server_pkg }}"
   notify:
     - Restart Qpid daemon
   tags:
     - qpid_cpp_server_pkg
 
-- name: Install storage package
-  yum:
+- name: Install Qpid storage package
+  package:
     name: "{{ qpid_cpp_server_storage_pkg }}"
   notify:
     - Restart Qpid daemon
@@ -20,13 +36,26 @@
   template:
     src: qpidd.conf.j2
     dest: "{{ qpid_cpp_server_daemon_config_file }}"
+  register: qpid_cpp_server_config_result
   notify:
     - Restart Qpid daemon
   tags:
     - qpid_cpp_server_config
 
-- name: Make qpidd service running
+- name: Enable qpidd service
   service:
     name: qpidd
     enabled: yes
+  tags:
+    - qpid_cpp_server_service
+
+- name: Run qpidd service
+  service:
+    name: qpidd
     state: running
+  when: >
+    qpid_cpp_server_config_result is not defined or
+    not qpid_cpp_server_config_result.changed
+  register: qpid_cpp_server_service_started
+  tags:
+    - qpid_cpp_server_service

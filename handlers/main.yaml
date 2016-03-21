@@ -4,3 +4,6 @@
   service:
     name: qpidd
     state: restarted
+  when: >
+    qpid_cpp_server_service_started is not defined or
+    not qpid_cpp_server_service_started.changed
