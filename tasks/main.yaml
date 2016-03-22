@@ -16,6 +16,17 @@
   tags:
     - qpid_cpp_server_pkg
 
+- name: Add Qpid YUM repo
+  yum_repository:
+    name: qpid
+    description: Qpid YUM repo
+    baseurl: "{{ qpid_cpp_server_qpid_yumrepo_url }}"
+    gpgcheck: no
+    params: "{{ qpid_cpp_server_qpid_yumrepo_params }}"
+  when: ansible_distribution_major_version | int == 6
+  tags:
+    - qpid_cpp_server_pkg
+
 - name: Install Qpid CCP Server package
   package:
     name: "{{ qpid_cpp_server_pkg }}"

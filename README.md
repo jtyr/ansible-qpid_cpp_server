@@ -45,11 +45,17 @@ List of variables used by the role:
 # Whether to install EPEL YUM repo
 qpid_cpp_server_epel_install: yes
 
-# EPEL YUM repo URL
+# EPEL YUM repo URL for RHEL/CentOS 7
 qpid_cpp_server_epel_yumrepo_url: "{{ yumrepo_epel_url | default('https://dl.fedoraproject.org/pub/epel/' + ansible_distribution_major_version + '/' + ansible_userspace_architecture + '/') }}"
 
-# Additional YUM repo params
+# Additional EPEL YUM repo params
 qpid_cpp_server_epel_yumrepo_params: {}
+
+# YUM repo for RHEL/CentOS 6 only
+qpid_cpp_server_qpid_yumrepo_url: https://copr-be.cloud.fedoraproject.org/results/@qpid/qpid/epel-6-$basearch/
+
+# Additional Qpid YUM repo params
+qpid_cpp_server_qpid_yumrepo_params: {}
 
 # Package to be installed (version can be specified here)
 qpid_cpp_server_pkg: qpid-cpp-server
