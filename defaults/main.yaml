@@ -4,7 +4,7 @@
 qpid_cpp_server_epel_install: yes
 
 # EPEL YUM repo URL for RHEL/CentOS 7
-qpid_cpp_server_epel_yumrepo_url: "{{ yumrepo_epel_url | default('https://dl.fedoraproject.org/pub/epel/' + ansible_distribution_major_version + '/' + ansible_userspace_architecture + '/') }}"
+qpid_cpp_server_epel_yumrepo_url: "{{ yumrepo_epel_url | default('https://dl.fedoraproject.org/pub/epel/$releasever/$basearch/') }}"
 
 # Additional EPEL YUM repo params
 qpid_cpp_server_epel_yumrepo_params: {}
