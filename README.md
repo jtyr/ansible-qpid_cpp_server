@@ -1,7 +1,15 @@
-pulp
-====
+qpid_cpp_server
+===============
 
 Ansible role which installs Qpid CPP server.
+
+The configuration of the role is done in such way that it should not be necessary
+to change the role for any kind of configuration. All can be done either by
+changing role parameters or by declaring completely new configuration as a
+variable. That makes this role absolutely universal. See the examples below for
+more details.
+
+Please report any issues or send PR.
 
 
 Examples
@@ -22,18 +30,6 @@ Examples
       qpid_cpp_server_qpidd_config:
         auth: 'no'
 ```
-
-This role requires [Config
-Encoders](https://github.com/jtyr/ansible/blob/jtyr-config_encoders/lib/ansible/plugins/filter/config_encoders.py)
-which must be configured in the `ansible.cfg` file like this:
-
-```
-[defaults]
-
-filter_plugins = ./plugins/filter/
-```
-
-Where the `./plugins/filter/` containes the `config_encoders.py` file.
 
 
 Role variables
@@ -74,7 +70,7 @@ qpid_cpp_server_qpidd_config: {}
 Dependencies
 ------------
 
-- [Config Encoders](https://github.com/jtyr/ansible/blob/jtyr-config_encoders/lib/ansible/plugins/filter/config_encoders.py)
+- [`config_encoder_filters`](https://github.com/jtyr/ansible-config_encoder_filters)
 
 
 License
