@@ -12,7 +12,7 @@
     baseurl: "{{ qpid_cpp_server_epel_yumrepo_url }}"
     gpgkey: "{{ qpid_cpp_server_epel_yumrepo_gpgkey }}"
     params: "{{ qpid_cpp_server_epel_yumrepo_params }}"
-  when: qpid_cpp_server_epel_install
+  when: qpid_cpp_server_epel_install == true
   tags:
     - qpid_cpp_server_pkg
 
@@ -62,7 +62,7 @@
 - name: Run qpidd service
   service:
     name: qpidd
-    state: running
+    state: started
   register: qpid_cpp_server_service_started
   tags:
     - qpid_cpp_server_service
