@@ -48,7 +48,7 @@ qpid_cpp_server_epel_yumrepo_url: "{{ yumrepo_epel_url | default('https://dl.fed
 qpid_cpp_server_epel_yumrepo_gpgkey: "{{ yumrepo_epel_gpgkey | default('https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-$releasever') }}"
 
 # Additional EPEL params
-open_vm_tools_epel_yumrepo_params: "{{ yumrepo_epel_params | default({}) }}"
+qpid_cpp_server_epel_yumrepo_params: "{{ yumrepo_epel_params | default({}) }}"
 
 # YUM repo for RHEL/CentOS 6 only
 qpid_cpp_server_qpid_yumrepo_url: https://copr-be.cloud.fedoraproject.org/results/@qpid/qpid/epel-6-$basearch/
